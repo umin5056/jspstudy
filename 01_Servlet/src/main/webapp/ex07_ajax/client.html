@@ -28,18 +28,50 @@
 			
 				
 				/* 응답 */
-				dataType: 'text',
-				success: (resData)=>{
+				dataType: 'text', // 서블릿의 response.setContentType과 연결
+				success: (resData)=>{ // 서블릿의 out.println()안의 값이 resData.
 					$('#content1').append(resData);
 				},
-				error: (jqXHR)=>{
-					
+				error: (jqXHR)=>{ // jqXHR은 서블릿의 response와 연결
+					$('#content1').append($('<div>').text('status: ' + jqXHR.status)); // reponse.status
+					$('#content1').append($('<div>').text('responseText: ' + jqXHR.responseText)); // 예외처리의 out.println()안의 값이 responseText
 				}
-				
 			})
 		})	
-	
 	</script>
+	
+	<div>
+		<form id="frm_person">
+			<input type="text" name="name" placeholder="이름">
+			<input type="text" name="age" placeholder="나이">
+			<input type="button" id="btn2" value="JSON 요청">
+		</form>
+		<div id="content2"></div>	
+	</div>
+	<script>
+		$('#btn2').on('click', function() {
+			$('#content2').empty();
+			$.ajax({
+				/* 요청 */
+				type: "get",
+				url: "/01_Servlet/JSONServlet",
+				data: $('#frm_person').serialize(), // form 내부의 모든 입력 요소(name 속성이 파라미터로 인식된다.)
+					
+				/* 응답 */
+				dataType: "json",
+			//  ㄴ> 서블릿에서는 toString()으로 문자열로 바꾸었지만 여기서 다시 json으로 변경 == JSON.parse(resData)
+				success: (resData)=>{ // resData == {"name":"마돈나", "age":50};
+					$('#content2').append($('<div>').text(resData.name));
+					$('#content2').append($('<div>').text(resData.age));
+				},
+				error: (jqXHR) => {
+					$('#content2').append($('<div>').text(jqXHR.status));
+					$('#content2').append($('<div>').text(jqXHR.responseText));
+				}
+			})
+		})
+	</script>
+
 
 </body>
 </html>

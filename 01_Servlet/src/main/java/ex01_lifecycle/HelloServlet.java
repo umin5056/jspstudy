@@ -109,7 +109,7 @@ public class HelloServlet extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// POST 메소드를 통해서 넘오온 정보를 모두 doGet() 메소드에 넘긴다.
+		// POST 메소드를 통해서 넘어온 정보를 모두 doGet() 메소드에 넘긴다.
 		doGet(request, response);
 	}
 
