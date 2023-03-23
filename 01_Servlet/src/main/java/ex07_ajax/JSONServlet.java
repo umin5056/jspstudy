@@ -41,6 +41,10 @@ public class JSONServlet extends HttpServlet {
 			if(age < 0 || age > 100) {
 				throw new AgeHandleException(age + "살은 잘못된 나이입니다.", 600);
 			}
+			// 이름 예외 처리
+			if(name.length() < 2 || name.length() > 6) {
+				throw new NameHandleException(name + "은 잘못된 이름입니다.", 601);
+			}
 			
 			
 			// 응답할 JSON 데이터
@@ -62,7 +66,7 @@ public class JSONServlet extends HttpServlet {
 		//	ㄴ> obj로 보내도 작동하지만, JSON 라이브러리를 변경할 경우 정상 작동을 안해서 toString()을 꼭 해준다.		
 			out.flush();
 			out.close();
-		}catch(AgeHandleException e) {
+		}catch(MyHandleException e) { // Age와 Name의 부모로 catch 1개로 모두 처리 가능
 
 			response.setContentType("text/plain; charset=UTF-8");
 			
@@ -75,9 +79,6 @@ public class JSONServlet extends HttpServlet {
 			out.flush();
 			out.close();
 		}
-		
-
-		
 	
 	}
 
