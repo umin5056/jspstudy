@@ -37,13 +37,11 @@ public class JSONServlet extends HttpServlet {
 				age = Integer.parseInt(strAge);
 			}
 			
-			
+			// 나이 예외 처리
 			if(age < 0 || age > 100) {
-				throw new RuntimeException(age + "살은 잘못된 나이입니다.");
+				throw new AgeHandleException(age + "살은 잘못된 나이입니다.", 600);
 			}
-			if(name.length() < 2 || name.length() > 6) {
-				throw new RuntimeException(name+ "은 잘못된 이름입니다.");
-			}
+			
 			
 			// 응답할 JSON 데이터
 			JSONObject obj = new JSONObject();
@@ -64,15 +62,12 @@ public class JSONServlet extends HttpServlet {
 		//	ㄴ> obj로 보내도 작동하지만, JSON 라이브러리를 변경할 경우 정상 작동을 안해서 toString()을 꼭 해준다.		
 			out.flush();
 			out.close();
-		}catch(RuntimeException e) {
-			// 응답 데이터 타입
+		}catch(AgeHandleException e) {
+
 			response.setContentType("text/plain; charset=UTF-8");
 			
-			if(e.getMessage().contains("나이")) {
-				response.setStatus(600);
-			} else {
-				response.setStatus(601);
-			}
+			
+			response.setStatus(e.getErrorCode());
 			
 			// 출력 스트림 생성
 			PrintWriter out = response.getWriter();

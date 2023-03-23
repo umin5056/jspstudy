@@ -15,14 +15,14 @@ public class Study01 extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
 		
-		String name = request.getParameter("name");
+		String model = request.getParameter("model");
 		
-		System.out.println("study01 : " + name);
+		System.out.println("Study01 도착" + model);
 		
-//		response.sendRedirect("/01_Servlet/Study02?name=" + URLEncoder.encode(name, "utf-8"));
-		request.getRequestDispatcher("/Study03").forward(request, response);
+		 response.sendRedirect("/01_Servlet/Study02?model=" + model);
+
 
 	
 	}
