@@ -1,11 +1,14 @@
 package ex09_binding;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/BindingServlet1")
 public class BindingServlet1 extends HttpServlet {
@@ -32,6 +35,24 @@ public class BindingServlet1 extends HttpServlet {
 	 			(3) removeAttribute('속성')	   : 값 제거하기
 	 */
 		
+		// HttpServletRequest에 저장하기
+		request.setAttribute("a", 100);
+		
+		// HttpSession에 저장하기
+		HttpSession session = request.getSession();
+		session.setAttribute("a", 200);
+		
+		// ServletContext에 저장하기
+		ServletContext ctx = request.getServletContext(); // "request." 생략 가능
+		ctx.setAttribute("a", 300);
+		
+		// 페이지 이동하기
+		
+		// 1. HttpServletRequest의 전달이 없는 이동 : redirect, <a href="">, locaion.href=""
+		// response.sendRedirect("/01_Servlet/BindingServlet2");
+		
+		// 2. HttpServletRequest의 전달이 있는 이동 : forward
+		request.getRequestDispatcher("/BindingServlet2").forward(request, response);
 		
 	
 	}
