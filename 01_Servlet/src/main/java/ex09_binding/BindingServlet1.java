@@ -26,8 +26,8 @@ public class BindingServlet1 extends HttpServlet {
 	   		1) 값을 저장할 수 있는 영역에 속성(Attribute)의 형태로 값을 저장하는 것을 말한다.
 	   		2) 저장 영역은 서버가 제공한다.
 	   		3) 3개 영역
-	   			(1) HttpServletRequest : 하나의 요청 내에서 값을 저장할 수 있다. (1회용)
-	   			(2) HttpSession		   : 웹 브라우저 종료 전까지 값을 저장할 수 있다. (시간 지정 가능)
+	   			(1) HttpServletRequest : 하나의 요청 내에서 값을 저장할 수 있다. (1회용) - 검색
+	   			(2) HttpSession		   : 웹 브라우저 종료 전까지 값을 저장할 수 있다. (시간 지정 가능) - 로그인
 	   			(3) ServletContext	   : 컨텍스트(프로젝트, 애플리케이션) 종료 전까지 값을 저장할 수 있다.
 	   		4) 속성(Attribute) 관련 메소드
 	   			(1) getAttribute('속성')	   : 값 가져오기 (캐스팅이 필요할 수 있다.)

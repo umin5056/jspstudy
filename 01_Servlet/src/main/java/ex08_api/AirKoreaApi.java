@@ -21,8 +21,9 @@ public class AirKoreaApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 요청 인코딩
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
+		// 요청 파라미
 		String sidoName = request.getParameter("sidoName");
 		String returnType = request.getParameter("returnType");
 		
@@ -68,7 +69,7 @@ public class AirKoreaApi extends HttpServlet {
 		reader.close();
 		con.disconnect();
 
-		System.out.println(sb);
+//		System.out.println(sb);
 
 		
 		// API 결과를 ajax 응답 처리하기
