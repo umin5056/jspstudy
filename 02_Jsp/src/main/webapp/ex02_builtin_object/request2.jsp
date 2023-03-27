@@ -15,7 +15,7 @@
 		String model = request.getParameter("model");
 		Optional opt = Optional.ofNullable(request.getParameter("price"));
 		Object strPrice = opt.orElse("0");
-		int price = Integer.parseInt(strPrice.toString());
+		int price = Integer.parseInt(strPrice.toString()); // toSring() 대신 Optional<String>으로 코드를 작성할 수도 있다.
 		
 	%>
 	
