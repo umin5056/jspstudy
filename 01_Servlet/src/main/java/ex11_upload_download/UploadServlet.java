@@ -65,7 +65,7 @@ public class UploadServlet extends HttpServlet {
 	// 첨부 파일 정보
 	// 파일명, 경로, 최종수정일(yyyy-mm-dd), 파일크기(KB)
 	File file = multipartRequest.getFile("filename");
-	String name = file.getName();
+	String name = file.getName(); 
 	String parent = file.getParent();
 	String lastModified = new SimpleDateFormat("yyyy-MM-dd").format(file.lastModified());
 	String size = new DecimalFormat("#,##0").format(file.length()/1024 + (file.length() % 1024 != 0 ? 1 : 0));

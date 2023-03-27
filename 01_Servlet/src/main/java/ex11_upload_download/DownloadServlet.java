@@ -30,7 +30,7 @@ public class DownloadServlet extends HttpServlet {
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
 	
 		// 다운로드용 응답 헤더 작업
-		response.setHeader("Content-Disposition", "attachment");
+		response.setHeader("Content-Disposition", "attachment; filename=" + path.substring(path.lastIndexOf("\\") + 1));
 		response.setHeader("Content-Length", file.length()+"");
 		
 		// 응답 스트림(출력 스트림)
