@@ -9,32 +9,12 @@
 	request.setCharacterEncoding("UTF-8");
 	Optional<String> opt = Optional.ofNullable(request.getParameter("title"));
 	String title = opt.orElse("Welcome to here");
+	
 %>
+<%--request.getContextPath() == /02_Jsp--%>
 <title><%= title %></title>
-<style>
-		nav ul {
-			display: flex;
-			list-style-type: none;
-		}
-		
-		nav ul li {
-			width: 100px;
-			height: 30px;
-			text-align: center;
-			line-height: 30px;
-		}
-		
-		
-		nav ul li a {
-			text-decoration: none;
-			color: #181818;
-			display: block;
-			width: 100%;
-			height: 100%;
-			
-		}
-		
-	</style>
+<link rel='stylesheet' href="<%= request.getContextPath()%>/resources/css/header.css">
+<script src="<%= request.getContextPath() %>/resources/js/lib/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 

@@ -9,7 +9,6 @@
 </head>
 <body>
 
-
 	<%
 		request.setCharacterEncoding("UTF-8");
 		String model = request.getParameter("model");
