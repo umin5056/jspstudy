@@ -19,9 +19,9 @@
 			<input type="number" name="item_count" min="1" max="10">개
 			<button>장바구니에 추가</button>
 		</form>
-		<form action="03_cart_list.jsp">
-			<button>장바구니로 이동</button>
-		</form>
+		
+			<a href="03_cart_list.jsp">장바구니로 이동</a>
+		
 		
 	</div>
 
