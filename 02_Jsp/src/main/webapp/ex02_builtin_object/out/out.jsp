@@ -23,7 +23,7 @@
 	
 	<hr>
 	
-	<%-- out 객체 활용하 --%>
+	<%-- out 객체 활용하기 --%>
 	<ul>
 		<%
 			for(int i=0; i<seasons.length; i++) {

@@ -47,17 +47,10 @@ public class ResponseServlet extends HttpServlet {
 		
 		// 2. 응답 스트림 생성(IOException 처리가 필요하다. -> 이미 처리되어 있다.)
 		PrintWriter out =  response.getWriter(); // PrintWriter의 응답 메소드 : append(), write(), print(), println() 등
-		out.println("<!DOCTYPE html>");
-		out.println("<html lang=\"ko\">");
-		out.println("<head>");
-		out.println("<meta charset=\"UTF-8\">");
-		out.println("<title>나의 첫 응답</title>");
-		out.println("</head>");
-		out.println("<body>");
+	
 		out.println("<h1>모델명 : " + model + "</h1>");
 		out.println("<h1>가격 : " + price + "</h1>");
-		out.println("</body>");
-		out.println("</html>");
+		
 		out.flush(); // (혹시) 출력 스트림에 남아있는 데이터는 모두 내보내기
 		out.close();
 		

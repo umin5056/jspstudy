@@ -1,6 +1,7 @@
 package ex03_parameter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
@@ -26,8 +27,15 @@ public class ArrayServlet extends HttpServlet {
 		String[] tel = request.getParameterValues("tel");
 		String[] hobbies = request.getParameterValues("hobbies");
 		
-		response.getWriter().append("tel : ").append(tel[0] + " - " + tel[1] + " - " + tel[2]).append(", hobbies : " + Arrays.toString(hobbies));
+		PrintWriter out = response.getWriter();
+		out.append("tel : ");
+	for(int i=0; i<tel.length; i++) {
+		out.append(tel[i] + " ");
 	}
+		out.append(", hobbies11 : " + Arrays.toString(hobbies));
+
+	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
