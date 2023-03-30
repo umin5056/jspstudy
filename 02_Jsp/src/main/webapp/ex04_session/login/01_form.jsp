@@ -11,7 +11,7 @@
 
 	<% if(session.getAttribute("loginId") == null) { %>
 			<div>
-				<form method="post" action="<%=request.getContextPath() %>/ex04_session/login/02_login.jsp">
+				<form method="post" action="02_login.jsp">
 					<div><input type='text' name='id' placeholder="id"></div>
 					<div><input type="password" name="pw" placeholder="비밀번호"></div>
 					<div><button>로그인</button></div>
