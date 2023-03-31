@@ -14,5 +14,10 @@
 	<c:if test='${age != null }'>
 		<h1>나이는 ${age}살 입니다.</h1>
 	</c:if>	
+	<c:if test="${bmi != null and health != null}">
+		<h1>BMI : ${bmi}</h1>
+		<h1>건강상태 : ${health}</h1>
+	</c:if>
+	
 </body>
 </html>
