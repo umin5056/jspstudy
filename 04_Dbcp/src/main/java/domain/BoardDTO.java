@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 
 public class BoardDTO {
+	
 	private int board_no;
 	private String title;
 	private String content;
