@@ -1,13 +1,22 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.do") // getAllBoardList.do  detBoardByNo.do	 addBoard.do  modifyBoard.do  removeBoard.do
+import common.ActionForward;
+import service.BoardAddService;
+import service.BoardDetailService;
+import service.BoardListService;
+import service.BoardModifyService;
+import service.BoardRemoveService;
+import service.IBoardService;
+
+@WebServlet("*.do") // getAllBoardList.do  getBoardByNo.do  writeboard.do  addBoard.do  modifyBoard.do  removeBoard.do
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,11 +30,52 @@ public class BoardController extends HttpServlet {
 		String requestURI = request.getRequestURI();					/*	/04_Dbcp/getAllBoardList.do		*/
 		String contextPath = request.getContextPath();					/*	/04_Dbcp						*/
 		String urlMapping = requestURI.substring(contextPath.length()); /*	/getAllBoardList.do				*/
-	
+		
+		// 모든 서비스의 공통 타입 선언
+		IBoardService service = null;
+		
+		// ActionForward 선언
+		ActionForward af = null;
+		
+		// URLMapping에 따른 서비스 생성
+		switch(urlMapping) {
+			case "/getAllBoardList.do" : 
+				service = new BoardListService();
+				break;
+			case "/getBoardByNo.do" :
+				service = new BoardDetailService();
+				break;
+			case "/addBoard.do" :
+				service = new BoardAddService();
+				break;
+			case "/modifyBoard.do" :
+				service = new BoardModifyService();
+				break;
+			case "/removeBoard.do" :
+				service = new BoardRemoveService();
+				break;
+			case "/writeboard.do" :
+				af = new ActionForward("board/write.jsp", false); //write.jsp로 forward 한다. (단순 이동의 경우 forward한다.)
+				break;
+		}
+		
+		// 서비스 실행
+		if(service != null) {
+			af = service.execute(request, response);
+		}
+		
+		// 응답 View로 이동
+		if(af != null) {
+			if(af.isRedirect()) {
+				response.sendRedirect(af.getPath());
+			}else {
+				request.getRequestDispatcher(af.getPath()).forward(request, response);
+			}
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		doGet(request, response); 
 	}
 
 }
