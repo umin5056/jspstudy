@@ -113,14 +113,54 @@ public class BoardDAO {
 	// 게시글 반환하기	
 	public BoardDTO selectBoardByNo(int board_no) {
 		
-		return null;
+		// 1. 반환할 BoardDTO board 선언
+		BoardDTO board = null;
+		
+		try {
+			
+			// 2. DataSource로부터 Connection 얻어 오기
+			con = dataSource.getConnection();
+			
+			// 3. 실행할 쿼리문
+			sql = "SELECT BOARD_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE FROM BOARD WHERE BOARD_NO = ?";
+			
+			// 4. 쿼리문을 실행할 PreparedStatement 객체 생성
+			ps = con.prepareStatement(sql);
+			
+			// 5. 쿼리문에 변수 값 전달하기
+			ps.setInt(1, board_no); // 첫번째 ?에 board_no 전달
+			
+			// 6. PreparedStatement 객체를 이용해 쿼리문 실행 (SELECT문 실행은 executeQuery 메소드로 한다.)
+			rs = ps.executeQuery();
+			
+			// 7. ResultSet 객체(결과 집합)를 이용해서 BoardDTO를 만듦
+			if(rs.next()) {
+				// Step1. Board 테이블의 결과 행(Row)를 읽는다. (board_no은 매개변수로 받았기 때문에 받을 필요 없다)
+				String title = rs.getString("TITLE");
+				String content = rs.getString("CONTENT");
+				Date modified_date = rs.getDate("MODIFIED_DATE");
+				Date created_date = rs.getDate("CREATED_DATE");
+				
+				// Step2. 읽은 정보를 이용해서 BoardDTO 객체를 만든다.
+				board = new BoardDTO(board_no, title, content, modified_date, created_date);
+			}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				// 예외 발생 여부와 상관없이 항상 자원의 반납을 해야 한다.	
+				close();
+			}
+			
+			// 8. 조회된 게시글 BoardDTO board 반환
+			return board;
+		
 	}
 	
 	// 게시글 삽입하기
 	public int insertBoard(BoardDTO board) {
 		
 		// 1. 삽입 결과 변수 선언
-		int insertResult = 1;
+		int insertResult = 0;
 		
 		try {
 			
@@ -138,7 +178,7 @@ public class BoardDAO {
 			ps.setString(2, board.getContent()); // 두번째 물음표에 content 전달
 			
 			// 6. PreparedStatement 객체를 이용해 쿼리문 실행 (INSERT문 실행은 executeUpdate 메소드로 한다.)
-			insertResult = ps.executeUpdate(sql);
+			insertResult = ps.executeUpdate();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -159,7 +199,31 @@ public class BoardDAO {
 	// 게시글 삭제하기
 	public int deleteBoard(int board_no) {
 		
-		return 0;
+		// 1. 삭제 결과 변수 선언
+		int deleteResult = 0;
+		
+		try {
+			// 2. DataSource로부터 Connection 얻어 오기
+				con = dataSource.getConnection();
+				
+				// 3. 실행할 쿼리문
+				sql = "DELETE FROM BOARD WHERE BOARD_NO = ?";
+				
+				// 4. 쿼리문을 실행할 PreparedStatement 객체 생성
+				ps = con.prepareStatement(sql);
+				
+				// 5. 쿼리문 변수 값 전달하기
+				ps.setInt(1, board_no); 	 // 첫번쨰 물음표에 board_no 전달
+				
+				// 6. PreparedStatement 객체를 이용해 쿼리문 실행 (DELETE문 실행은 executeUpdate 메소드로 한다.)
+				deleteResult = ps.executeUpdate();
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return deleteResult;
 	}
 
 }

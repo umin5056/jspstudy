@@ -19,8 +19,17 @@
 			// 작성화면으로 이동
 			location.href="${contextPath}/board/write.jsp";	
 		})	
+		
+		$('.link_remove').on('click', function(event){
+		
+			if(confirm('삭제할까요?') == false) {
+				event.preventDefault(); // < button> 태그의 기본 동작인 submit 속성의 동작을 막는다.
+				return;
+			}
+					
+		})
+		
 	})
-
 </script>
 </head>
 <body>
@@ -40,12 +49,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${boardList}" var="board">
+					<!-- vs는 board의 상태를 나타낸다. (vs.index | vs.count 등) -->
+					<c:forEach items="${boardList}" var="board" varStatus="vs">  
 						<tr>
-							<td>${board.board_no}</td>
-							<td>${board.title}</td>
-							<td>${board.created_date}</td>
-							<td><a href="#"><i class="fa-solid fa-x"></i></a></td>
+							<td><fmt:formatNumber value="${boardListCount - vs.index}" pattern="#,##0"/></td>
+							<td><a href="${contextPath}/getBoardByNo.do?board_no=${board.board_no}">${board.title}</a></td>
+							<td><fmt:formatDate value="${board.created_date}" pattern="yy.MM.dd"/></td>
+							<td>
+								<form method="post" action="${contextPath}/removeBoard.do">
+									<input type="hidden" name="board_no" value="${board.board_no}">
+									<button class="link_remove"><i class="fa-solid fa-x"></i></button>
+								</form>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

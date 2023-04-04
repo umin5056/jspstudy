@@ -28,7 +28,7 @@ public class BoardAddService implements IBoardService {
 
 
 		// 4. 어디로 어떻게 이동할 지 지정
-		return new ActionForward("board/list.jsp", true); // Insert, Update, Delete 이후에는 리다이렉트로 이동
+		return new ActionForward(request.getContextPath() + "/getAllBoardList.do", true); // Insert, Update, Delete 이후에는 리다이렉트로 이동
 	}
 
 }
