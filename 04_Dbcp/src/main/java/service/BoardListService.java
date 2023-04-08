@@ -26,7 +26,7 @@ public class BoardListService implements IBoardService {
 		
 		// 4. 어디로 and 어떻게 이동
 		ActionForward af = new ActionForward("board/list.jsp", false); // board 폴더 아래 list.jsp로 forward (request 전달) 하시오.
-		
+
 		return af;
 	}
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- '.'를 이용해서 경로를 지정하기 때문에 확장자의 입력은 생략한다. -->
+  
+<mapper namespace="mybatis.mapper.member"> <!-- member파일을 의미 -->
+
+	<!-- 목록 -->
+	<select id="selectAllMembers" resultType="domain.Member">
+		SELECT MEMBER_NO, ID, NAME, GENDER, ADDRESS
+		  FROM MEMBER
+		 ORDER BY MEMBER_NO DESC 
+	</select>
+	
+	<!-- 전체 회원 수 -->
+	<select id="getMemberCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+	</select>
+	
+	<!-- 중복 체크 -->
+	<select id="checkMemberId" parameterType="String" resultType="domain.Member">
+		SELECT MEMBER_NO
+		  FROM MEMBER
+		 WHERE ID = #{id}
+	</select>
+	<!-- 상세 -->
+	<select id="selectMemberByNo" parameterType="int" resultType="Member">
+		SELECT MEMBER_NO, ID, NAME, GENDER, ADDRESS
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}	
+	</select>
+	
+	<!-- 삽입 -->
+	<insert id="insertMember" parameterType="domain.Member">
+		INSERT INTO MEMBER
+			(MEMBER_NO, ID, NAME, GENDER, ADDRESS)
+		VALUES
+			(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{gender}, #{address})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateMember" parameterType="domain.Member">
+		UPDATE MEMBER
+		   SET NAME = #{name}
+		     , GENDER = #{gender}
+		     , ADDRESS = #{address}
+		 WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteMember" parameterType="int">
+		DELETE
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo} 
+	</delete>
+</mapper>

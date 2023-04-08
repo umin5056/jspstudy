@@ -23,7 +23,7 @@ public class BoardDetailService implements IBoardService {
 		// 2. BoardDAO의 selectBoardByNo 메소드를 호출
 		BoardDTO board = BoardDAO.getInstance().selectBoardByNo(board_no);
 		
-		// 3. 존재하지 않는 게시글인 경우 응답 처
+		// 3. 존재하지 않는 게시글인 경우 응답 처리
 		if(board == null) {
 			try {
 				PrintWriter out = response.getWriter();

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mybatis.mapper.stu">
+
+	<!-- 목록 -->	
+	<select id="getAllStudent" resultType="domain.Student">
+		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+		  FROM STUDENT
+		 ORDER BY STU_NO DESC
+	</select>
+	
+	<!-- 상세 -->
+	<select id="detailStudent" parameterType="int" resultType="domain.Student">
+		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+		  FROM STUDENT
+		 WHERE STU_NO = #{stuNo}
+	</select>
+	
+	<!-- 추가 -->
+	<insert id="addStudent" parameterType="domain.Student">
+		INSERT INTO STUDENT
+		VALUES(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade});
+	</insert>
+	
+	<!-- 삭제 -->
+	<delete id="removeStudent" parameterType="int">
+		DELETE
+		  FROM STUDENT
+		 WHERE STU_NO = #{stuNo} 
+	</delete>
+	
+
+</mapper>
