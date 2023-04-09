@@ -22,7 +22,9 @@
 	<!-- 추가 -->
 	<insert id="addStudent" parameterType="domain.Student">
 		INSERT INTO STUDENT
-		VALUES(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade});
+			(STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE)
+		VALUES
+			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade})
 	</insert>
 	
 	<!-- 삭제 -->

@@ -17,6 +17,7 @@ public class StuListService implements IStuService {
 		List<Student> studentList = StuDAO.getInstance().getAllStudent();
 		
 		request.setAttribute("studentList", studentList);
+		request.setAttribute("isNoStudent", studentList.size() == 0);
 		
 		ActionForward af = new ActionForward();
 		

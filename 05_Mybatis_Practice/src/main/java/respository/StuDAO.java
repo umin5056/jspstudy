@@ -50,7 +50,7 @@ public class StuDAO {
 	
 	// 추가
 	public int addStudent(Student student) {
-		SqlSession ss = factory.openSession();
+		SqlSession ss = factory.openSession(true);
 		int insertResult = ss.insert(NS + "addStudent", student);
 		ss.close();
 		return insertResult;
@@ -58,7 +58,7 @@ public class StuDAO {
 	
 	// 삭제
 	public int removeStudent(int stuNo) {
-		SqlSession ss = factory.openSession();
+		SqlSession ss = factory.openSession(true);
 		int deleteResult = ss.delete(NS + "removeStudent", stuNo);
 		ss.close();
 		return deleteResult;
